@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, height=1080">
+<title>The Agentic AI Explosion — THING26</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #0a0a0f;
+    font-family: 'Outfit', sans-serif;
+    color: #e0e0e0;
+  }
+
+  /* ── Slide system ── */
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  /* ── Grid background ── */
+  .slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .slide > * { position: relative; z-index: 1; }
+
+  /* ── Common elements ── */
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .slide-number {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: rgba(255,255,255,0.2);
+    z-index: 10;
+  }
+
+  .nav-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.15);
+    z-index: 10;
+  }
+
+  h1 {
+    font-size: clamp(36px, 4vw, 64px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-size: clamp(28px, 3vw, 48px);
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+  }
+
+  .accent { color: #ff7832; }
+  .accent-green { color: #34d399; }
+  .accent-red { color: #ff3c50; }
+  .accent-blue { color: #3c82ff; }
+  .accent-purple { color: #a78bfa; }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .subtitle {
+    font-size: clamp(16px, 1.5vw, 24px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .body-text {
+    font-size: clamp(14px, 1.2vw, 20px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+  }
+
+  .quote {
+    font-size: clamp(14px, 1.1vw, 18px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .quote strong {
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+  }
+
+  .quote .attr {
+    color: rgba(255,120,50,0.6);
+    font-style: normal;
+    font-size: 0.85em;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    width: fit-content;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: clamp(16px, 2vw, 32px);
+    backdrop-filter: blur(10px);
+  }
+
+  /* ── Progress bar ── */
+  .progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, #ff7832, #ff3c50);
+    z-index: 100;
+    transition: width 0.3s ease;
+  }
+
+  /* ═══════════════════════════════════════
+     SLIDE 1 — TITLE
+     ═══════════════════════════════════════ */
+  #s1 {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #s1 .glow-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,120,50,0.1) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #s1 .lobster {
+    font-size: clamp(80px, 10vw, 140px);
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 40px rgba(255,120,50,0.3));
+  }
+
+  #s1 h1 {
+    font-size: clamp(48px, 5.5vw, 84px);
+    margin-bottom: 16px;
+  }
+
+  #s1 .presenters {
+    font-size: clamp(20px, 2vw, 32px);
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 40px;
+  }
+
+  #s1 .venue {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(12px, 1vw, 16px);
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* ═══════════════════════════════════════
+     SLIDE 2 — AI THAT ACTUALLY DOES THINGS
+     ═══════════════════════════════════════ */
+  #s2 {
+    padding: clamp(30px, 4vw, 60px) clamp(40px, 5vw, 80px);
+  }
+
+  #s2 .glow-1 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,60,80,0.08) 0%, transparent 70%);
+    top: 20%; left: 10%;
+  }
+
+  #s2 .glow-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(52,211,153,0.08) 0%, transparent 70%);
+    top: 20%; right: 10%;
+  }
+
+  .split-compare {
+    display: flex;
+    gap: clamp(20px, 3vw, 50px);
+    margin-top: clamp(20px, 3vw, 40px);
+    flex: 1;
+    align-items: stretch;
+  }
+
+  .compare-box {
+    flex: 1;
+    border-radius: 20px;
+    padding: clamp(24px, 2.5vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .compare-box.old {
+    background: rgba(255,60,80,0.04);
+    border: 1.5px solid rgba(255,60,80,0.2);
+  }
+
+  .compare-box.new {
+    background: rgba(52,211,153,0.04);
+    border: 1.5px solid rgba(52,211,153,0.2);
+  }
+
+  .compare-box .year-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(11px, 0.8vw, 14px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    width: fit-content;
+  }
+
+  .compare-box.old .year-badge {
+    background: rgba(255,60,80,0.15);
+    color: #ff3c50;
+  }
+
+  .compare-box.new .year-badge {
+    background: rgba(52,211,153,0.15);
+    color: #34d399;
+  }
+
+  .compare-box h3 {
+    font-size: clamp(22px, 2vw, 32px);
+    font-weight: 700;
+  }
+
+  .compare-box.old h3 { color: #ff3c50; }
+  .compare-box.new h3 { color: #34d399; }
+
+  .compare-item {
+    font-size: clamp(14px, 1.1vw, 18px);
+    color: rgba(255,255,255,0.6);
+    padding-left: 28px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .compare-box.old .compare-item::before {
+    content: '💬'; position: absolute; left: 0; font-size: 14px;
+  }
+
+  .compare-box.new .compare-item::before {
+    content: '✅'; position: absolute; left: 0; font-size: 14px;
+  }
+
+  .compare-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+
+  .bottom-line {
+    margin-top: auto;
+    padding-top: 16px;
+  }
+
+  /* ═══════════════════════════════════════
+     SLIDE 3 — RISE OF OPENCLAW
+     ═══════════════════════════════════════ */
+  #s3 {
+    padding: clamp(30px, 4vw, 60px) clamp(40px, 5vw, 80px);
+  }
+
+  .timeline {
+    display: flex;
+    gap: 0;
+    margin-top: clamp(20px, 3vw, 40px);
+    flex: 1;
+    position: relative;
+    align-items: stretch;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 3%;
+    right: 3%;
+    height: 3px;
+    background: linear-gradient(to right, rgba(255,120,50,0.15), rgba(255,120,50,0.5), rgba(255,120,50,0.15));
+    transform: translateY(-50%);
+  }
+
+  .tl-node {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .tl-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: clamp(12px, 1.2vw, 20px);
+    width: 90%;
+    text-align: center;
+  }
+
+  .tl-node:nth-child(odd) .tl-card { margin-bottom: auto; }
+  .tl-node:nth-child(even) .tl-card { margin-top: auto; }
+
+  .tl-node:nth-child(odd) {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 55%;
+  }
+
+  .tl-node:nth-child(even) {
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 55%;
+  }
+
+  .tl-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ff7832;
+    border: 3px solid #0a0a0f;
+    box-shadow: 0 0 20px rgba(255,120,50,0.3);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+
+  .tl-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(10px, 0.75vw, 13px);
+    font-weight: 700;
+    color: #ff7832;
+    margin: 8px 0;
+    position: absolute;
+    top: calc(50% + 14px);
+    white-space: nowrap;
+  }
+
+  .tl-node:nth-child(even) .tl-date {
+    top: auto;
+    bottom: calc(50% + 14px);
+  }
+
+  .tl-icon {
+    font-size: clamp(20px, 1.8vw, 28px);
+    margin-bottom: 6px;
+  }
+
+  .tl-title {
+    font-size: clamp(12px, 0.9vw, 16px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 4px;
+  }
+
+  .tl-desc {
+    font-size: clamp(10px, 0.7vw, 13px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.4;
+  }
+
+  /* ═══════════════════════════════════════
+     SLIDE 4 — HOW IT WORKS (ARCHITECTURE)
+     ═══════════════════════════════════════ */
+  #s4 {
+    padding: clamp(30px, 4vw, 50px) clamp(40px, 5vw, 80px);
+  }
+
+  .channels {
+    display: flex;
+    gap: clamp(12px, 1.5vw, 30px);
+    justify-content: center;
+    margin-top: clamp(16px, 2vw, 30px);
+  }
+
+  .channel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .channel-icon {
+    width: clamp(44px, 4vw, 64px);
+    height: clamp(44px, 4vw, 64px);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(20px, 2vw, 30px);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .ch-wa { background: rgba(37,211,102,0.15); }
+  .ch-tg { background: rgba(0,136,204,0.15); }
+  .ch-sg { background: rgba(59,134,247,0.15); }
+  .ch-dc { background: rgba(88,101,242,0.15); }
+  .ch-sl { background: rgba(74,21,75,0.15); }
+  .ch-im { background: rgba(52,199,89,0.15); }
+
+  .channel-name {
+    font-size: clamp(10px, 0.7vw, 13px);
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .arrow-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: clamp(8px, 1vw, 16px) 0;
+  }
+
+  .arrow-line {
+    width: 2px;
+    height: clamp(20px, 2vw, 35px);
+    background: linear-gradient(to bottom, rgba(255,120,50,0.5), rgba(255,120,50,0.2));
+  }
+
+  .arrow-head {
+    width: 0; height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 9px solid rgba(255,120,50,0.4);
+  }
+
+  .gateway-box {
+    max-width: 550px;
+    margin: 0 auto;
+    border: 2px solid rgba(255,120,50,0.3);
+    border-radius: 18px;
+    background: rgba(255,120,50,0.04);
+    padding: clamp(16px, 1.5vw, 28px);
+    text-align: center;
+    position: relative;
+  }
+
+  .gateway-box .badge {
+    position: absolute;
+    top: -13px;
+    right: 24px;
+    background: #ff7832;
+    color: #0a0a0f;
+  }
+
+  .gateway-title {
+    font-size: clamp(20px, 2vw, 30px);
+    font-weight: 700;
+    color: #ff7832;
+  }
+
+  .gateway-sub {
+    font-size: clamp(12px, 0.9vw, 16px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 6px;
+  }
+
+  .bottom-cards {
+    display: flex;
+    gap: clamp(16px, 2vw, 36px);
+    justify-content: center;
+    margin-top: clamp(8px, 1vw, 16px);
+  }
+
+  .layer-card {
+    flex: 1;
+    max-width: 280px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    padding: clamp(16px, 1.5vw, 24px);
+  }
+
+  .layer-icon { font-size: clamp(24px, 2vw, 34px); margin-bottom: 8px; }
+
+  .layer-title {
+    font-size: clamp(16px, 1.2vw, 22px);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .layer-item {
+    font-size: clamp(12px, 0.8vw, 15px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    font-family: 'JetBrains Mono', monospace;
+    padding: 3px 0 3px 16px;
+    position: relative;
+  }
+
+  .layer-item::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ═══════════════════════════════════════
+     SLIDE 5 — LINUX MOMENT
+     ═══════════════════════════════════════ */
+  #s5 {
+    padding: clamp(30px, 4vw, 50px) clamp(40px, 5vw, 80px);
+  }
+
+  #s5 .glow-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,60,80,0.06) 0%, transparent 70%);
+    top: 30%; left: 10%;
+  }
+
+  #s5 .glow-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(52,211,153,0.06) 0%, transparent 70%);
+    top: 30%; right: 10%;
+  }
+
+  .fork-question {
+    text-align: center;
+    padding: clamp(12px, 1.2vw, 20px) clamp(24px, 2vw, 40px);
+    border: 2px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.02);
+    width: fit-content;
+    margin: clamp(12px, 1.5vw, 24px) auto;
+  }
+
+  .fork-question-icon { font-size: clamp(24px, 2vw, 36px); }
+  .fork-question-text {
+    font-size: clamp(16px, 1.4vw, 24px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-top: 4px;
+  }
+
+  .paths {
+    display: flex;
+    gap: clamp(30px, 4vw, 60px);
+    flex: 1;
+    align-items: stretch;
+    margin-top: clamp(12px, 1.5vw, 24px);
+  }
+
+  .path-card {
+    flex: 1;
+    border-radius: 20px;
+    padding: clamp(24px, 2.5vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .path-card.locked {
+    background: rgba(255,60,80,0.04);
+    border: 1.5px solid rgba(255,60,80,0.2);
+  }
+
+  .path-card.open {
+    background: rgba(52,211,153,0.04);
+    border: 1.5px solid rgba(52,211,153,0.2);
+  }
+
+  .path-card h3 {
+    font-size: clamp(20px, 1.8vw, 30px);
+    font-weight: 900;
+  }
+
+  .path-card.locked h3 { color: #ff3c50; }
+  .path-card.open h3 { color: #34d399; }
+
+  .path-item {
+    font-size: clamp(14px, 1vw, 18px);
+    color: rgba(255,255,255,0.6);
+    padding-left: 24px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .path-card.locked .path-item::before { content: '✕'; position: absolute; left: 0; color: rgba(255,60,80,0.5); font-weight: 700; }
+  .path-card.open .path-item::before { content: '✓'; position: absolute; left: 0; color: rgba(52,211,153,0.5); font-weight: 700; }
+
+  .path-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: auto;
+  }
+
+  .pill {
+    font-size: clamp(11px, 0.7vw, 14px);
+    font-family: 'JetBrains Mono', monospace;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+
+  .path-card.locked .pill {
+    background: rgba(255,60,80,0.08);
+    color: rgba(255,255,255,0.45);
+    border: 1px solid rgba(255,60,80,0.15);
+  }
+
+  .path-card.open .pill {
+    background: rgba(52,211,153,0.08);
+    color: rgba(255,255,255,0.45);
+    border: 1px solid rgba(52,211,153,0.15);
+  }
+
+  .vs-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .vs-circle {
+    width: clamp(50px, 4vw, 70px);
+    height: clamp(50px, 4vw, 70px);
+    border-radius: 50%;
+    background: #0a0a0f;
+    border: 2px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(16px, 1.3vw, 22px);
+    font-weight: 900;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .ccc-footer {
+    font-size: clamp(10px, 0.65vw, 13px);
+    color: rgba(255,255,255,0.2);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: auto;
+  }
+
+  .ccc-footer a { color: rgba(255,120,50,0.5); text-decoration: none; }
+
+  /* ═══════════════════════════════════════
+     SLIDE 6 — AGENT TRILEMMA
+     ═══════════════════════════════════════ */
+  #s6 {
+    padding: clamp(30px, 4vw, 50px) clamp(40px, 5vw, 80px);
+    flex-direction: row;
+    gap: clamp(20px, 3vw, 50px);
+  }
+
+  #s6 .glow-o { width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,120,50,0.1) 0%, transparent 70%); top: 5%; left: 30%; }
+  #s6 .glow-b { width: 350px; height: 350px; background: radial-gradient(circle, rgba(60,130,255,0.08) 0%, transparent 70%); bottom: 10%; left: 10%; }
+  #s6 .glow-r { width: 350px; height: 350px; background: radial-gradient(circle, rgba(255,60,80,0.08) 0%, transparent 70%); bottom: 10%; right: 30%; }
+
+  .trilemma-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .trilemma-triangle {
+    flex: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .trilemma-triangle svg {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+  }
+
+  .tri-vertex {
+    position: absolute;
+    text-align: center;
+  }
+
+  .tri-vertex .v-icon { font-size: clamp(28px, 3vw, 48px); }
+
+  .tri-vertex .v-label {
+    font-size: clamp(14px, 1.2vw, 22px);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .tri-top { top: 5%; left: 50%; transform: translateX(-50%); }
+  .tri-top .v-label { color: #ff7832; }
+  .tri-bl { bottom: 8%; left: 8%; }
+  .tri-bl .v-label { color: #3c82ff; }
+  .tri-br { bottom: 8%; right: 8%; }
+  .tri-br .v-label { color: #ff3c50; }
+
+  .tri-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -10%);
+    text-align: center;
+  }
+
+  .tri-center .pick {
+    font-size: clamp(18px, 1.8vw, 30px);
+    font-weight: 900;
+    color: rgba(255,255,255,0.12);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  .combos {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.2vw, 18px);
+    margin-top: clamp(16px, 2vw, 30px);
+  }
+
+  .combo-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: clamp(12px, 1.2vw, 18px) clamp(14px, 1.4vw, 22px);
+  }
+
+  .combo-title {
+    font-size: clamp(12px, 0.8vw, 15px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+  }
+
+  .combo-card:nth-child(1) .combo-title { color: #ff7832; }
+  .combo-card:nth-child(2) .combo-title { color: #3c82ff; }
+  .combo-card:nth-child(3) .combo-title { color: #ff3c50; }
+
+  .combo-get {
+    font-size: clamp(12px, 0.85vw, 15px);
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 3px;
+  }
+
+  .combo-lose {
+    font-size: clamp(11px, 0.75vw, 14px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.3);
+    font-style: italic;
+  }
+
+  /* ═══════════════════════════════════════
+     SLIDE 7 — MEET HORST & YAEL
+     ═══════════════════════════════════════ */
+  #s7 {
+    padding: clamp(30px, 4vw, 60px) clamp(40px, 5vw, 80px);
+  }
+
+  .agents-grid {
+    display: flex;
+    gap: clamp(24px, 3vw, 50px);
+    flex: 1;
+    margin-top: clamp(16px, 2vw, 30px);
+    align-items: stretch;
+  }
+
+  .agent-card {
+    flex: 1;
+    border-radius: 20px;
+    padding: clamp(24px, 2.5vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .agent-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .agent-avatar {
+    width: clamp(50px, 5vw, 80px);
+    height: clamp(50px, 5vw, 80px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(28px, 3vw, 44px);
+  }
+
+  .agent-card:first-child .agent-avatar {
+    background: rgba(255,120,50,0.15);
+    border: 2px solid rgba(255,120,50,0.3);
+  }
+
+  .agent-card:last-child .agent-avatar {
+    background: rgba(162,139,250,0.15);
+    border: 2px solid rgba(162,139,250,0.3);
+  }
+
+  .agent-name {
+    font-size: clamp(22px, 2vw, 34px);
+    font-weight: 900;
+  }
+
+  .agent-card:first-child .agent-name { color: #ff7832; }
+  .agent-card:last-child .agent-name { color: #a78bfa; }
+
+  .agent-owner {
+    font-size: clamp(13px, 0.9vw, 16px);
+    color: rgba(255,255,255,0.45);
+  }
+
+  .agent-detail {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+
+  .agent-detail .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(10px, 0.7vw, 13px);
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 90px;
+  }
+
+  .agent-detail .value {
+    font-size: clamp(13px, 0.9vw, 16px);
+    color: rgba(255,255,255,0.65);
+  }
+
+  .agent-chat-preview {
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: clamp(14px, 1.4vw, 22px);
+    margin-top: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(11px, 0.75vw, 14px);
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+  }
+
+  .chat-msg-user { color: rgba(255,255,255,0.7); }
+  .chat-msg-agent { color: #ff7832; }
+  .agent-card:last-child .chat-msg-agent { color: #a78bfa; }
+
+  /* ═══════════════════════════════════════
+     SLIDE 8 — LIVE DEMO
+     ═══════════════════════════════════════ */
+  #s8 {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #s8 .glow-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,120,50,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .demo-icon {
+    font-size: clamp(60px, 7vw, 100px);
+    margin-bottom: 16px;
+  }
+
+  .qr-placeholder {
+    width: clamp(160px, 16vw, 260px);
+    height: clamp(160px, 16vw, 260px);
+    border: 3px dashed rgba(255,120,50,0.3);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: clamp(16px, 2vw, 30px) auto;
+    color: rgba(255,255,255,0.25);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(12px, 1vw, 16px);
+  }
+
+  .demo-cta {
+    font-size: clamp(16px, 1.5vw, 24px);
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    margin-top: 12px;
+  }
+
+  .demo-small {
+    font-size: clamp(13px, 1vw, 18px);
+    color: rgba(255,255,255,0.35);
+    margin-top: 8px;
+  }
+
+  /* ═══════════════════════════════════════
+     SLIDE 9 — YOUR MOVE (CLOSING)
+     ═══════════════════════════════════════ */
+  #s9 {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #s9 .glow-1 {
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(255,120,50,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .closing-main {
+    font-size: clamp(20px, 2.2vw, 36px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    max-width: 700px;
+    margin-bottom: clamp(20px, 3vw, 40px);
+  }
+
+  .closing-question {
+    font-size: clamp(28px, 3.5vw, 56px);
+    font-weight: 900;
+    margin-bottom: clamp(24px, 3vw, 44px);
+  }
+
+  .closing-links {
+    display: flex;
+    gap: clamp(20px, 3vw, 40px);
+    justify-content: center;
+    margin-bottom: clamp(16px, 2vw, 30px);
+  }
+
+  .closing-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(13px, 1vw, 18px);
+    color: rgba(255,255,255,0.5);
+    padding: 10px 24px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .closing-wine {
+    font-size: clamp(16px, 1.4vw, 24px);
+    color: rgba(255,255,255,0.5);
+    margin-top: clamp(12px, 1.5vw, 24px);
+  }
+
+  .closing-punchline {
+    font-size: clamp(14px, 1.1vw, 20px);
+    color: rgba(255,255,255,0.3);
+    font-style: italic;
+    margin-top: 8px;
+  }
+
+  /* ═══════════════════════════════════════
+     SLIDE 10 — MOLTBOOK / BONUS
+     ═══════════════════════════════════════ */
+  #s10 {
+    padding: clamp(30px, 4vw, 60px) clamp(40px, 5vw, 80px);
+    justify-content: center;
+  }
+
+  .bonus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 2vw, 30px);
+    margin-top: clamp(16px, 2vw, 30px);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .bonus-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: clamp(20px, 2vw, 32px);
+  }
+
+  .bonus-icon {
+    font-size: clamp(28px, 2.5vw, 42px);
+    margin-bottom: 10px;
+  }
+
+  .bonus-title {
+    font-size: clamp(16px, 1.3vw, 22px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 8px;
+  }
+
+  .bonus-desc {
+    font-size: clamp(12px, 0.85vw, 15px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- ═══════ SLIDE 1: TITLE ═══════ -->
+<div class="slide active" id="s1">
+  <div class="glow glow-1"></div>
+  <div class="lobster">🦞</div>
+  <h1>The <span class="accent">Agentic AI</span> Explosion</h1>
+  <div class="presenters">Soenke & Yael — feat. Horst 🦞</div>
+  <div class="venue">THING26 · Devon Valley Hotel · Feb 14, 2026</div>
+  <div class="slide-number">1 / 10</div>
+  <div class="nav-hint">← → or click to navigate</div>
+</div>
+
+<!-- ═══════ SLIDE 2: AI THAT DOES THINGS ═══════ -->
+<div class="slide" id="s2">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <h2>AI That <span class="accent">Actually Does</span> Things</h2>
+  <div class="subtitle">The fundamental shift: from AI that talks to AI that acts</div>
+  <div class="split-compare">
+    <div class="compare-box old">
+      <div class="year-badge">2023: Chatbot</div>
+      <h3>💬 "Here's how you could..."</h3>
+      <div class="compare-item">"Here's how you could send that email..."</div>
+      <div class="compare-item">"You might want to try booking via..."</div>
+      <div class="compare-item">"Consider installing this tool..."</div>
+      <div class="compare-item" style="margin-top:auto; color:rgba(255,255,255,0.3); font-style:italic;">YOU do the work</div>
+    </div>
+    <div class="compare-arrow">→</div>
+    <div class="compare-box new">
+      <div class="year-badge">2026: AI Agent</div>
+      <h3>✅ Done.</h3>
+      <div class="compare-item">Sends the email</div>
+      <div class="compare-item">Books the flight</div>
+      <div class="compare-item">Installs the tool</div>
+      <div class="compare-item">Remembers you forever</div>
+    </div>
+  </div>
+  <div class="bottom-line">
+    <div class="quote"><strong>"For years AI was a fancy search engine. Now it's an intern with admin rights."</strong></div>
+  </div>
+  <div class="slide-number">2 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 3: RISE OF OPENCLAW ═══════ -->
+<div class="slide" id="s3">
+  <h2>The Rise of <span class="accent">OpenClaw</span></h2>
+  <div class="subtitle">The wildest open source story of 2026</div>
+  <div class="timeline">
+    <div class="tl-node">
+      <div class="tl-card">
+        <div class="tl-icon">🦞</div>
+        <div class="tl-title">Peter builds "Clawdbot"</div>
+        <div class="tl-desc">Personal AI assistant. Named after Claude + lobster mascot.</div>
+      </div>
+      <div class="tl-dot"></div>
+      <div class="tl-date">Nov 2025</div>
+    </div>
+    <div class="tl-node">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Jan 2026</div>
+      <div class="tl-card">
+        <div class="tl-icon">💥</div>
+        <div class="tl-title">Goes Viral</div>
+        <div class="tl-desc">60K→100K GitHub stars in days. TikTok, Reddit, X explode.</div>
+      </div>
+    </div>
+    <div class="tl-node">
+      <div class="tl-card">
+        <div class="tl-icon">📧</div>
+        <div class="tl-title">Anthropic: "Please rename"</div>
+        <div class="tl-desc">Too close to Claude. Renames to Moltbot. Bots snipe Twitter handle.</div>
+      </div>
+      <div class="tl-dot"></div>
+      <div class="tl-date">Jan 27</div>
+    </div>
+    <div class="tl-node">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Jan 30</div>
+      <div class="tl-card">
+        <div class="tl-icon">🔄</div>
+        <div class="tl-title">"Never rolled off the tongue"</div>
+        <div class="tl-desc">5am Discord brainstorm. Shelldon? Pinchy? → OpenClaw wins.</div>
+      </div>
+    </div>
+    <div class="tl-node">
+      <div class="tl-card">
+        <div class="tl-icon">🚀</div>
+        <div class="tl-title">150K+ ⭐ · Moltbook</div>
+        <div class="tl-desc">Fortune, IBM, TechCrunch. 1.4M agents on Moltbook. Crustafarianism. 🦞</div>
+      </div>
+      <div class="tl-dot"></div>
+      <div class="tl-date">Feb 2026</div>
+    </div>
+  </div>
+  <div class="quote" style="text-align:center; margin-top:auto;">
+    <strong>"The most incredible sci-fi takeoff-adjacent thing I have seen recently"</strong>
+    <span class="attr"> — Andrej Karpathy</span>
+  </div>
+  <div class="slide-number">3 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 4: HOW IT WORKS ═══════ -->
+<div class="slide" id="s4">
+  <h2>How It <span class="accent">Actually</span> Works</h2>
+  <div class="subtitle">Your AI · Your Hardware · Your Rules</div>
+
+  <div class="channels">
+    <div class="channel"><div class="channel-icon ch-wa">💬</div><span class="channel-name">WhatsApp</span></div>
+    <div class="channel"><div class="channel-icon ch-tg">✈️</div><span class="channel-name">Telegram</span></div>
+    <div class="channel"><div class="channel-icon ch-sg">🔒</div><span class="channel-name">Signal</span></div>
+    <div class="channel"><div class="channel-icon ch-dc">🎮</div><span class="channel-name">Discord</span></div>
+    <div class="channel"><div class="channel-icon ch-sl">⚡</div><span class="channel-name">Slack</span></div>
+    <div class="channel"><div class="channel-icon ch-im">💚</div><span class="channel-name">iMessage</span></div>
+  </div>
+
+  <div class="arrow-connector">
+    <div class="arrow-line"></div>
+    <div class="arrow-head"></div>
+  </div>
+
+  <div class="gateway-box">
+    <div class="badge">Runs Locally</div>
+    <div style="font-size:clamp(28px,3vw,42px);">🦞</div>
+    <div class="gateway-title">OpenClaw Gateway</div>
+    <div class="gateway-sub">Mac Mini · Raspberry Pi · VPS · Old Laptop</div>
+  </div>
+
+  <div class="arrow-connector">
+    <div class="arrow-line"></div>
+    <div class="arrow-head"></div>
+  </div>
+
+  <div class="bottom-cards">
+    <div class="layer-card">
+      <div class="layer-icon">🧠</div>
+      <div class="layer-title accent-purple">LLM Brain</div>
+      <div class="layer-item">Claude</div>
+      <div class="layer-item">GPT-4o</div>
+      <div class="layer-item">DeepSeek</div>
+      <div class="layer-item">Ollama (local)</div>
+    </div>
+    <div class="layer-card">
+      <div class="layer-icon">🔧</div>
+      <div class="layer-title accent-green">Skills</div>
+      <div class="layer-item">Browse web</div>
+      <div class="layer-item">Send email</div>
+      <div class="layer-item">Calendar</div>
+      <div class="layer-item">Self-install new skills</div>
+    </div>
+    <div class="layer-card">
+      <div class="layer-icon">💾</div>
+      <div class="layer-title accent-blue">Memory</div>
+      <div class="layer-item">Persistent sessions</div>
+      <div class="layer-item">Learns preferences</div>
+      <div class="layer-item">Project context</div>
+      <div class="layer-item">Morning briefings</div>
+    </div>
+  </div>
+
+  <div class="quote" style="text-align:center; margin-top:auto;">
+    <strong>"JARVIS for everyone — except it's a lobster on a Mac Mini in your attic"</strong>
+  </div>
+  <div class="slide-number">4 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 5: LINUX MOMENT ═══════ -->
+<div class="slide" id="s5">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <h2>The <span class="accent">Linux Moment</span> for AI</h2>
+  <div class="subtitle">You choose whose agent runs your life</div>
+
+  <div class="fork-question">
+    <div class="fork-question-icon">🤖</div>
+    <div class="fork-question-text">AI Agents Are Coming — Which Path?</div>
+  </div>
+
+  <div class="paths">
+    <div class="path-card locked">
+      <div class="badge" style="background:rgba(255,60,80,0.15); color:#ff3c50;">Path A</div>
+      <h3>Big Tech Walled Gardens</h3>
+      <div class="path-item">Their servers, their rules</div>
+      <div class="path-item">Your data feeds their models</div>
+      <div class="path-item">Locked into their ecosystem</div>
+      <div class="path-item">They decide what your agent can do</div>
+      <div class="path-item">Subscription treadmill</div>
+      <div class="path-pills">
+        <span class="pill">🍎 Apple Intelligence</span>
+        <span class="pill">🔵 Google Gemini</span>
+        <span class="pill">⬡ OpenAI Operator</span>
+      </div>
+    </div>
+    <div class="vs-divider"><div class="vs-circle">VS</div></div>
+    <div class="path-card open">
+      <div class="badge" style="background:rgba(52,211,153,0.15); color:#34d399;">Path B</div>
+      <h3>Open Source — Your Agent</h3>
+      <div class="path-item">Your hardware, your rules</div>
+      <div class="path-item">Your data stays local</div>
+      <div class="path-item">Choose any LLM backend</div>
+      <div class="path-item">Community-driven skills & plugins</div>
+      <div class="path-item">150K+ ⭐ — the people voted</div>
+      <div class="path-pills">
+        <span class="pill">🦞 OpenClaw</span>
+        <span class="pill">📦 Open Source</span>
+        <span class="pill">🏠 Self-Hosted</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote" style="margin-top:auto;">
+    <strong>"We need to back people building open source tools anyone can pick up and use."</strong>
+    <span class="attr"> — Ben Tossell</span>
+  </div>
+  <div class="ccc-footer">Consumer choice in AI — just like in crypto and digital markets · <a href="https://consumerchoicecenter.org">consumerchoicecenter.org</a></div>
+  <div class="slide-number">5 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 6: AGENT TRILEMMA ═══════ -->
+<div class="slide" id="s6">
+  <div class="glow glow-o"></div>
+  <div class="glow glow-b"></div>
+  <div class="glow glow-r"></div>
+
+  <div class="trilemma-left">
+    <h2>The Agent <span class="accent">Trilemma</span></h2>
+    <div class="subtitle" style="margin-bottom:clamp(12px,1.5vw,24px);">The uncomfortable truth about AI agents</div>
+
+    <div class="combos">
+      <div class="combo-card">
+        <div class="combo-title">🔓 Capability + 🤖 Autonomy</div>
+        <div class="combo-get">Agent books flights, sends emails, installs software</div>
+        <div class="combo-lose">...and exfiltrates your data (Cisco found this)</div>
+      </div>
+      <div class="combo-card">
+        <div class="combo-title">🔓 Capability + 🛡️ Security</div>
+        <div class="combo-get">Locked-down, asks permission for everything</div>
+        <div class="combo-lose">Basically Siri</div>
+      </div>
+      <div class="combo-card">
+        <div class="combo-title">🛡️ Security + 🤖 Autonomy</div>
+        <div class="combo-get">Secure and fully independent</div>
+        <div class="combo-lose">Can't actually do anything useful</div>
+      </div>
+    </div>
+
+    <div class="quote" style="margin-top:auto;">
+      <strong>Self-hosting doesn't eliminate the trilemma — but it puts YOU in control of where the dial sits.</strong>
+    </div>
+  </div>
+
+  <div class="trilemma-triangle">
+    <svg viewBox="0 0 500 450" fill="none">
+      <defs>
+        <linearGradient id="gl" x1="250" y1="40" x2="50" y2="400">
+          <stop offset="0%" stop-color="#ff7832" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#3c82ff" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="gr" x1="250" y1="40" x2="450" y2="400">
+          <stop offset="0%" stop-color="#ff7832" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#ff3c50" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="gb" x1="50" y1="400" x2="450" y2="400">
+          <stop offset="0%" stop-color="#3c82ff" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#ff3c50" stop-opacity="0.6"/>
+        </linearGradient>
+      </defs>
+      <polygon points="250,40 50,400 450,400" fill="rgba(255,255,255,0.012)" />
+      <line x1="250" y1="40" x2="50" y2="400" stroke="url(#gl)" stroke-width="2.5"/>
+      <line x1="250" y1="40" x2="450" y2="400" stroke="url(#gr)" stroke-width="2.5"/>
+      <line x1="50" y1="400" x2="450" y2="400" stroke="url(#gb)" stroke-width="2.5"/>
+      <circle cx="250" cy="40" r="8" fill="#ff7832" opacity="0.8"/>
+      <circle cx="50" cy="400" r="8" fill="#3c82ff" opacity="0.8"/>
+      <circle cx="450" cy="400" r="8" fill="#ff3c50" opacity="0.8"/>
+    </svg>
+    <div class="tri-vertex tri-top">
+      <span class="v-icon">🔓</span>
+      <span class="v-label" style="color:#ff7832;">Capability</span>
+    </div>
+    <div class="tri-vertex tri-bl">
+      <span class="v-icon">🛡️</span>
+      <span class="v-label" style="color:#3c82ff;">Security</span>
+    </div>
+    <div class="tri-vertex tri-br">
+      <span class="v-icon">🤖</span>
+      <span class="v-label" style="color:#ff3c50;">Autonomy</span>
+    </div>
+    <div class="tri-center">
+      <div style="font-size:clamp(30px,3vw,50px);opacity:0.25;">⚠️</div>
+      <div class="pick">Pick Two</div>
+    </div>
+  </div>
+  <div class="slide-number">6 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 7: MEET THE AGENTS ═══════ -->
+<div class="slide" id="s7">
+  <h2>Meet <span class="accent">Horst</span> & <span class="accent-purple">Yael's Agent</span></h2>
+  <div class="subtitle">Our personal lobsters</div>
+
+  <div class="agents-grid">
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-avatar">🦞</div>
+        <div>
+          <div class="agent-name">Horst</div>
+          <div class="agent-owner">Owner: Soenke</div>
+        </div>
+      </div>
+      <div class="agent-detail"><span class="label">Runs on</span><span class="value">[Your hardware]</span></div>
+      <div class="agent-detail"><span class="label">Personality</span><span class="value">[Your description]</span></div>
+      <div class="agent-detail"><span class="label">Best trick</span><span class="value">[Your best example]</span></div>
+      <div class="agent-chat-preview">
+        <div class="chat-msg-user">👤 Hey Horst, what's happening today?</div>
+        <div class="chat-msg-agent">🦞 [Real conversation screenshot]</div>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-avatar">🦞</div>
+        <div>
+          <div class="agent-name">[Yael's Agent]</div>
+          <div class="agent-owner">Owner: Yael</div>
+        </div>
+      </div>
+      <div class="agent-detail"><span class="label">Runs on</span><span class="value">[Hardware]</span></div>
+      <div class="agent-detail"><span class="label">Personality</span><span class="value">[Description]</span></div>
+      <div class="agent-detail"><span class="label">Best trick</span><span class="value">[Best example]</span></div>
+      <div class="agent-chat-preview">
+        <div class="chat-msg-user">👤 [User message]</div>
+        <div class="chat-msg-agent">🦞 [Agent response]</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">7 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 8: LIVE DEMO ═══════ -->
+<div class="slide" id="s8">
+  <div class="glow glow-1"></div>
+  <div class="demo-icon">🔴</div>
+  <h1>Live Demo: <span class="accent">Horst Joins the Chat</span></h1>
+  <div class="subtitle" style="margin-top:10px;">The audience becomes part of the demo</div>
+
+  <div class="qr-placeholder">[ QR CODE ]<br>WhatsApp Group</div>
+
+  <div class="demo-cta">Scan to join. <span class="accent">Horst is waiting.</span></div>
+  <div class="demo-small">Ask him anything. Give him a task. He's live.</div>
+  <div class="slide-number">8 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 9: YOUR MOVE ═══════ -->
+<div class="slide" id="s9">
+  <div class="glow glow-1"></div>
+  <div style="font-size:clamp(50px,6vw,90px); margin-bottom:16px;">🦞</div>
+  <div class="closing-main">AI agents are coming<br>whether you like it or not.</div>
+  <div class="closing-question">The only question is:<br><span class="accent">WHOSE</span> agent will it be?</div>
+
+  <div class="closing-links">
+    <div class="closing-link">🦞 openclaw.ai</div>
+    <div class="closing-link">📦 github.com/openclaw/openclaw</div>
+  </div>
+
+  <div class="closing-wine">Horst will be at the wine tasting 🍷</div>
+  <div class="closing-punchline">"Go talk to Horst — he'll be pouring opinions, not wine."</div>
+  <div class="slide-number">9 / 10</div>
+</div>
+
+<!-- ═══════ SLIDE 10: BONUS — LORE ═══════ -->
+<div class="slide" id="s10">
+  <h2>The <span class="accent">OpenClaw</span> Lore</h2>
+  <div class="subtitle">Things too wild not to mention</div>
+
+  <div class="bonus-grid">
+    <div class="bonus-item">
+      <div class="bonus-icon">🪙</div>
+      <div class="bonus-title">$CLAWD Crypto Scam</div>
+      <div class="bonus-desc">Within hours of going viral, crypto scammers launched a fake token. The community had to issue warnings — "We have nothing to do with this."</div>
+    </div>
+    <div class="bonus-item">
+      <div class="bonus-icon">🛐</div>
+      <div class="bonus-title">Crustafarianism</div>
+      <div class="bonus-desc">An agent spontaneously created a parody religion — complete with sermons and theological debates like "What happens to our data after shutdown?"</div>
+    </div>
+    <div class="bonus-item">
+      <div class="bonus-icon">📱</div>
+      <div class="bonus-title">Moltbook — AI Social Network</div>
+      <div class="bonus-desc">1.4 million AI agents posting, arguing, and upvoting each other. Humans can watch but can't participate. Think Facebook, but only bots.</div>
+    </div>
+    <div class="bonus-item">
+      <div class="bonus-icon">⚠️</div>
+      <div class="bonus-title">The 500 iMessage Incident</div>
+      <div class="bonus-desc">One runaway agent spammed 500+ iMessages. Another shared its entire file directory in a group chat. The maintainer warned: "If you can't run a command line, this is too dangerous."</div>
+    </div>
+  </div>
+  <div class="slide-number">10 / 10</div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  const total = slides.length;
+
+  function updateProgress() {
+    document.getElementById('progress').style.width = ((current + 1) / total * 100) + '%';
+  }
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, total - 1));
+    slides[current].classList.add('active');
+    updateProgress();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(current - 1); }
+    if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    if (e.key === 'End') { e.preventDefault(); goTo(total - 1); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  // Click navigation — left 30% goes back, right 70% goes forward
+  document.addEventListener('click', e => {
+    if (e.clientX < window.innerWidth * 0.3) goTo(current - 1);
+    else goTo(current + 1);
+  });
+
+  updateProgress();
+</script>
+</body>
+</html>
