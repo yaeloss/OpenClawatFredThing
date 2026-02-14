@@ -1,0 +1,75 @@
+<div class="slide" id="s6">
+  <div class="glow glow-o"></div>
+  <div class="glow glow-b"></div>
+  <div class="glow glow-r"></div>
+
+  <div class="trilemma-left">
+    <h2>The Agent <span class="accent">Trilemma</span></h2>
+    <div class="subtitle" style="margin-bottom:clamp(8px,1vw,16px);">Every AI agent trades off between three things</div>
+
+    <div class="combos">
+      <div class="combo-card">
+        <div class="combo-title">Capability + Autonomy</div>
+        <div class="combo-get">Agent acts freely and does powerful things</div>
+        <div class="combo-lose">Risk: it can also do harmful things unsupervised</div>
+      </div>
+      <div class="combo-card">
+        <div class="combo-title">Capability + Security</div>
+        <div class="combo-get">Powerful but asks permission for everything</div>
+        <div class="combo-lose">Slow and annoying — basically a smart Siri</div>
+      </div>
+      <div class="combo-card">
+        <div class="combo-title">Security + Autonomy</div>
+        <div class="combo-get">Secure and independent</div>
+        <div class="combo-lose">Can't actually do anything useful</div>
+      </div>
+    </div>
+
+    <div class="trilemma-takeaway">
+      Self-hosting puts <span class="accent">you</span> in control of where the dial sits.
+    </div>
+  </div>
+
+  <div class="trilemma-triangle">
+    <svg viewBox="0 0 500 450" fill="none">
+      <defs>
+        <linearGradient id="gl" x1="250" y1="40" x2="50" y2="400">
+          <stop offset="0%" stop-color="#ff7832" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#3c82ff" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="gr" x1="250" y1="40" x2="450" y2="400">
+          <stop offset="0%" stop-color="#ff7832" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#ff3c50" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="gb" x1="50" y1="400" x2="450" y2="400">
+          <stop offset="0%" stop-color="#3c82ff" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#ff3c50" stop-opacity="0.6"/>
+        </linearGradient>
+      </defs>
+      <polygon points="250,40 50,400 450,400" fill="rgba(255,255,255,0.012)" />
+      <line x1="250" y1="40" x2="50" y2="400" stroke="url(#gl)" stroke-width="2.5"/>
+      <line x1="250" y1="40" x2="450" y2="400" stroke="url(#gr)" stroke-width="2.5"/>
+      <line x1="50" y1="400" x2="450" y2="400" stroke="url(#gb)" stroke-width="2.5"/>
+      <circle cx="250" cy="40" r="8" fill="#ff7832" opacity="0.8"/>
+      <circle cx="50" cy="400" r="8" fill="#3c82ff" opacity="0.8"/>
+      <circle cx="450" cy="400" r="8" fill="#ff3c50" opacity="0.8"/>
+    </svg>
+    <div class="tri-vertex tri-top">
+      <span class="v-icon">🔓</span>
+      <span class="v-label" style="color:#ff7832;">Capability</span>
+    </div>
+    <div class="tri-vertex tri-bl">
+      <span class="v-icon">🛡️</span>
+      <span class="v-label" style="color:#3c82ff;">Security</span>
+    </div>
+    <div class="tri-vertex tri-br">
+      <span class="v-icon">🤖</span>
+      <span class="v-label" style="color:#ff3c50;">Autonomy</span>
+    </div>
+    <div class="tri-center">
+      <div style="font-size:clamp(34px,3.5vw,54px);opacity:0.25;">⚠️</div>
+      <div class="pick">Pick Two</div>
+    </div>
+  </div>
+  <div class="slide-number">6 / 8</div>
+</div>
