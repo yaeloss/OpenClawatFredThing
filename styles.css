@@ -769,6 +769,94 @@ h2 {
   line-height: 1.4;
 }
 
+/* ── Trilemma sub-step animations ── */
+
+#s6[data-substeps] .combo-card {
+  opacity: 0;
+  transform: translateX(-40px) scale(0.95);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+}
+
+#s6[data-substeps] .trilemma-takeaway {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
+}
+
+/* SVG glow elements — hidden by default */
+#s6 .glow-line,
+#s6 .vtx-glow {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* ── Stage 1: Capability + Autonomy (right edge) ── */
+
+#s6.stage-1 .combo-card:nth-child(1),
+#s6.stage-2 .combo-card:nth-child(1),
+#s6.stage-3 .combo-card:nth-child(1) {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+#s6.stage-1 .combo-card:nth-child(1) {
+  border-color: rgba(255,120,50,0.35);
+  box-shadow: 0 0 24px rgba(255,120,50,0.08);
+}
+
+#s6.stage-1 .glow-right { animation: edge-pulse 2s ease-in-out infinite; }
+#s6.stage-1 .vtx-glow-cap,
+#s6.stage-1 .vtx-glow-aut { opacity: 0.35; }
+
+/* ── Stage 2: Capability + Security (left edge) ── */
+
+#s6.stage-2 .combo-card:nth-child(2),
+#s6.stage-3 .combo-card:nth-child(2) {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+#s6.stage-2 .combo-card:nth-child(2) {
+  border-color: rgba(60,130,255,0.35);
+  box-shadow: 0 0 24px rgba(60,130,255,0.08);
+}
+
+#s6.stage-2 .glow-right { opacity: 0.4; }
+#s6.stage-2 .glow-left  { animation: edge-pulse 2s ease-in-out infinite; }
+#s6.stage-2 .vtx-glow-cap,
+#s6.stage-2 .vtx-glow-sec,
+#s6.stage-2 .vtx-glow-aut { opacity: 0.35; }
+
+/* ── Stage 3: Security + Autonomy (bottom edge) + takeaway ── */
+
+#s6.stage-3 .combo-card:nth-child(3) {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+#s6.stage-3 .combo-card:nth-child(3) {
+  border-color: rgba(255,60,80,0.35);
+  box-shadow: 0 0 24px rgba(255,60,80,0.08);
+}
+
+#s6.stage-3 .glow-right,
+#s6.stage-3 .glow-left   { opacity: 0.4; }
+#s6.stage-3 .glow-bottom { animation: edge-pulse 2s ease-in-out infinite; }
+#s6.stage-3 .vtx-glow    { opacity: 0.35; }
+
+#s6.stage-3 .trilemma-takeaway {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes edge-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.85; }
+}
+
 /* ═══════════════════════════════════════
    SLIDE 7 — LIVE DEMO
    ═══════════════════════════════════════ */

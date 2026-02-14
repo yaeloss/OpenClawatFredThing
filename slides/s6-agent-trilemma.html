@@ -1,4 +1,4 @@
-<div class="slide" id="s6">
+<div class="slide" id="s6" data-substeps="3">
   <div class="glow glow-o"></div>
   <div class="glow glow-b"></div>
   <div class="glow glow-r"></div>
@@ -45,14 +45,35 @@
           <stop offset="0%" stop-color="#3c82ff" stop-opacity="0.6"/>
           <stop offset="100%" stop-color="#ff3c50" stop-opacity="0.6"/>
         </linearGradient>
+        <filter id="glow-edge" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
       </defs>
       <polygon points="250,40 50,400 450,400" fill="rgba(255,255,255,0.012)" />
-      <line x1="250" y1="40" x2="50" y2="400" stroke="url(#gl)" stroke-width="2.5"/>
-      <line x1="250" y1="40" x2="450" y2="400" stroke="url(#gr)" stroke-width="2.5"/>
-      <line x1="50" y1="400" x2="450" y2="400" stroke="url(#gb)" stroke-width="2.5"/>
+
+      <!-- Base edges -->
+      <line class="edge-base" x1="250" y1="40" x2="50" y2="400" stroke="url(#gl)" stroke-width="2.5"/>
+      <line class="edge-base" x1="250" y1="40" x2="450" y2="400" stroke="url(#gr)" stroke-width="2.5"/>
+      <line class="edge-base" x1="50" y1="400" x2="450" y2="400" stroke="url(#gb)" stroke-width="2.5"/>
+
+      <!-- Glow edges (hidden, revealed per stage) -->
+      <line class="glow-line glow-right" x1="250" y1="40" x2="450" y2="400" stroke="url(#gr)" stroke-width="4" filter="url(#glow-edge)"/>
+      <line class="glow-line glow-left" x1="250" y1="40" x2="50" y2="400" stroke="url(#gl)" stroke-width="4" filter="url(#glow-edge)"/>
+      <line class="glow-line glow-bottom" x1="50" y1="400" x2="450" y2="400" stroke="url(#gb)" stroke-width="4" filter="url(#glow-edge)"/>
+
+      <!-- Base vertex circles -->
       <circle cx="250" cy="40" r="8" fill="#ff7832" opacity="0.8"/>
       <circle cx="50" cy="400" r="8" fill="#3c82ff" opacity="0.8"/>
       <circle cx="450" cy="400" r="8" fill="#ff3c50" opacity="0.8"/>
+
+      <!-- Glow vertex circles (animated per stage) -->
+      <circle class="vtx-glow vtx-glow-cap" cx="250" cy="40" r="18" fill="#ff7832" filter="url(#glow-edge)"/>
+      <circle class="vtx-glow vtx-glow-sec" cx="50" cy="400" r="18" fill="#3c82ff" filter="url(#glow-edge)"/>
+      <circle class="vtx-glow vtx-glow-aut" cx="450" cy="400" r="18" fill="#ff3c50" filter="url(#glow-edge)"/>
     </svg>
     <div class="tri-vertex tri-top">
       <span class="v-icon">🔓</span>

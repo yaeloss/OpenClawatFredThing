@@ -12,15 +12,63 @@ const slideFiles = [
 let current = 0;
 let total = 0;
 let slides;
+let substep = 0;
 
 function updateProgress() {
   document.getElementById('progress').style.width = ((current + 1) / total * 100) + '%';
 }
 
+function applySubstep(slideEl, step) {
+  for (let i = 0; i <= 10; i++) slideEl.classList.remove('stage-' + i);
+  slideEl.classList.add('stage-' + step);
+}
+
+function removeSubstepClasses(slideEl) {
+  for (let i = 0; i <= 10; i++) slideEl.classList.remove('stage-' + i);
+}
+
 function goTo(n) {
+  const currentSlide = slides[current];
+  const maxSub = parseInt(currentSlide.dataset.substeps || '0', 10);
+  const direction = n > current ? 1 : (n < current ? -1 : 0);
+
+  // Handle substeps within current slide
+  if (direction === 1 && substep < maxSub) {
+    substep++;
+    applySubstep(currentSlide, substep);
+    return;
+  }
+
+  if (direction === -1 && substep > 0) {
+    substep--;
+    applySubstep(currentSlide, substep);
+    return;
+  }
+
+  // Prevent going out of bounds
+  const target = Math.max(0, Math.min(n, total - 1));
+  if (target === current) return;
+
+  // Leave current slide
   slides[current].classList.remove('active');
-  current = Math.max(0, Math.min(n, total - 1));
-  slides[current].classList.add('active');
+  removeSubstepClasses(slides[current]);
+
+  current = target;
+  const newSlide = slides[current];
+  const newMaxSub = parseInt(newSlide.dataset.substeps || '0', 10);
+
+  // If arriving by going backward, show slide fully revealed
+  if (direction === -1 && newMaxSub > 0) {
+    substep = newMaxSub;
+  } else {
+    substep = 0;
+  }
+
+  newSlide.classList.add('active');
+  if (newMaxSub > 0) {
+    applySubstep(newSlide, substep);
+  }
+
   updateProgress();
 }
 
@@ -29,6 +77,8 @@ function initNavigation() {
   total = slides.length;
   if (total > 0) {
     slides[0].classList.add('active');
+    const firstMaxSub = parseInt(slides[0].dataset.substeps || '0', 10);
+    if (firstMaxSub > 0) applySubstep(slides[0], 0);
     updateProgress();
   }
 
