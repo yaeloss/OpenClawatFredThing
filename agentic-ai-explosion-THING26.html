@@ -112,25 +112,6 @@
     line-height: 1.6;
   }
 
-  .quote {
-    font-size: clamp(14px, 1.1vw, 18px);
-    font-weight: 300;
-    color: rgba(255,255,255,0.4);
-    font-style: italic;
-    line-height: 1.5;
-  }
-
-  .quote strong {
-    color: rgba(255,255,255,0.7);
-    font-weight: 600;
-  }
-
-  .quote .attr {
-    color: rgba(255,120,50,0.6);
-    font-style: normal;
-    font-size: 0.85em;
-  }
-
   .badge {
     display: inline-block;
     font-size: 12px;
@@ -204,7 +185,7 @@
   }
 
   /* ═══════════════════════════════════════
-     SLIDE 2 — AI THAT ACTUALLY DOES THINGS
+     SLIDE 2 — FROM CHATBOT TO AGENT
      ═══════════════════════════════════════ */
   #s2 {
     padding: clamp(30px, 4vw, 60px) clamp(40px, 5vw, 80px);
@@ -287,11 +268,11 @@
   }
 
   .compare-box.old .compare-item::before {
-    content: '💬'; position: absolute; left: 0; font-size: 14px;
+    content: '—'; position: absolute; left: 0; color: rgba(255,60,80,0.4);
   }
 
   .compare-box.new .compare-item::before {
-    content: '✅'; position: absolute; left: 0; font-size: 14px;
+    content: '✓'; position: absolute; left: 0; color: rgba(52,211,153,0.5);
   }
 
   .compare-arrow {
@@ -306,113 +287,102 @@
   .bottom-line {
     margin-top: auto;
     padding-top: 16px;
+    font-size: clamp(15px, 1.2vw, 20px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
   }
 
   /* ═══════════════════════════════════════
-     SLIDE 3 — RISE OF OPENCLAW
+     SLIDE 3 — WHAT IS OPENCLAW
      ═══════════════════════════════════════ */
   #s3 {
     padding: clamp(30px, 4vw, 60px) clamp(40px, 5vw, 80px);
   }
 
-  .timeline {
+  #s3 .glow-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,120,50,0.08) 0%, transparent 70%);
+    top: 30%; right: 5%;
+  }
+
+  .overview-grid {
     display: flex;
-    gap: 0;
+    gap: clamp(24px, 3vw, 50px);
     margin-top: clamp(20px, 3vw, 40px);
     flex: 1;
-    position: relative;
     align-items: stretch;
   }
 
-  .timeline::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 3%;
-    right: 3%;
-    height: 3px;
-    background: linear-gradient(to right, rgba(255,120,50,0.15), rgba(255,120,50,0.5), rgba(255,120,50,0.15));
-    transform: translateY(-50%);
-  }
-
-  .tl-node {
+  .overview-card {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-  }
-
-  .tl-card {
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px;
-    padding: clamp(12px, 1.2vw, 20px);
-    width: 90%;
-    text-align: center;
-  }
-
-  .tl-node:nth-child(odd) .tl-card { margin-bottom: auto; }
-  .tl-node:nth-child(even) .tl-card { margin-top: auto; }
-
-  .tl-node:nth-child(odd) {
+    border-radius: 20px;
+    padding: clamp(24px, 2.5vw, 40px);
+    display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    padding-bottom: 55%;
+    gap: 14px;
   }
 
-  .tl-node:nth-child(even) {
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-top: 55%;
-  }
-
-  .tl-dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #ff7832;
-    border: 3px solid #0a0a0f;
-    box-shadow: 0 0 20px rgba(255,120,50,0.3);
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-  }
-
-  .tl-date {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(10px, 0.75vw, 13px);
-    font-weight: 700;
-    color: #ff7832;
-    margin: 8px 0;
-    position: absolute;
-    top: calc(50% + 14px);
-    white-space: nowrap;
-  }
-
-  .tl-node:nth-child(even) .tl-date {
-    top: auto;
-    bottom: calc(50% + 14px);
-  }
-
-  .tl-icon {
-    font-size: clamp(20px, 1.8vw, 28px);
-    margin-bottom: 6px;
-  }
-
-  .tl-title {
-    font-size: clamp(12px, 0.9vw, 16px);
+  .overview-card h3 {
+    font-size: clamp(18px, 1.6vw, 26px);
     font-weight: 700;
     color: rgba(255,255,255,0.85);
-    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
-  .tl-desc {
-    font-size: clamp(10px, 0.7vw, 13px);
+  .overview-card h3 span.oc-icon {
+    font-size: clamp(24px, 2.2vw, 36px);
+  }
+
+  .oc-bullet {
+    font-size: clamp(14px, 1vw, 18px);
+    color: rgba(255,255,255,0.6);
+    padding-left: 24px;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .oc-bullet::before {
+    content: '›';
+    position: absolute;
+    left: 6px;
+    color: #ff7832;
+    font-weight: 700;
+  }
+
+  .oc-stat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(12px, 0.85vw, 15px);
+    color: rgba(255,120,50,0.7);
+    padding: 8px 16px;
+    background: rgba(255,120,50,0.06);
+    border-radius: 10px;
+    border: 1px solid rgba(255,120,50,0.15);
+    width: fit-content;
+  }
+
+  .oc-quote {
+    font-size: clamp(13px, 0.95vw, 16px);
     font-weight: 300;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.4;
+    color: rgba(255,255,255,0.35);
+    font-style: italic;
+    margin-top: auto;
+    line-height: 1.5;
+  }
+
+  .oc-quote strong {
+    color: rgba(255,255,255,0.6);
+    font-weight: 600;
+  }
+
+  .oc-quote .attr {
+    color: rgba(255,120,50,0.5);
+    font-style: normal;
+    font-size: 0.85em;
   }
 
   /* ═══════════════════════════════════════
@@ -555,7 +525,7 @@
   }
 
   /* ═══════════════════════════════════════
-     SLIDE 5 — LINUX MOMENT
+     SLIDE 5 — OPEN SOURCE VS BIG TECH
      ═══════════════════════════════════════ */
   #s5 {
     padding: clamp(30px, 4vw, 50px) clamp(40px, 5vw, 80px);
@@ -573,30 +543,12 @@
     top: 30%; right: 10%;
   }
 
-  .fork-question {
-    text-align: center;
-    padding: clamp(12px, 1.2vw, 20px) clamp(24px, 2vw, 40px);
-    border: 2px solid rgba(255,255,255,0.12);
-    border-radius: 14px;
-    background: rgba(255,255,255,0.02);
-    width: fit-content;
-    margin: clamp(12px, 1.5vw, 24px) auto;
-  }
-
-  .fork-question-icon { font-size: clamp(24px, 2vw, 36px); }
-  .fork-question-text {
-    font-size: clamp(16px, 1.4vw, 24px);
-    font-weight: 700;
-    color: rgba(255,255,255,0.85);
-    margin-top: 4px;
-  }
-
   .paths {
     display: flex;
     gap: clamp(30px, 4vw, 60px);
     flex: 1;
     align-items: stretch;
-    margin-top: clamp(12px, 1.5vw, 24px);
+    margin-top: clamp(16px, 2vw, 30px);
   }
 
   .path-card {
@@ -684,15 +636,6 @@
     font-weight: 900;
     color: rgba(255,255,255,0.35);
   }
-
-  .ccc-footer {
-    font-size: clamp(10px, 0.65vw, 13px);
-    color: rgba(255,255,255,0.2);
-    font-family: 'JetBrains Mono', monospace;
-    margin-top: auto;
-  }
-
-  .ccc-footer a { color: rgba(255,120,50,0.5); text-decoration: none; }
 
   /* ═══════════════════════════════════════
      SLIDE 6 — AGENT TRILEMMA
@@ -807,116 +750,24 @@
     font-style: italic;
   }
 
+  .trilemma-takeaway {
+    font-size: clamp(13px, 0.95vw, 16px);
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    margin-top: auto;
+    line-height: 1.5;
+  }
+
   /* ═══════════════════════════════════════
-     SLIDE 7 — MEET HORST & YAEL
+     SLIDE 7 — LIVE DEMO
      ═══════════════════════════════════════ */
   #s7 {
-    padding: clamp(30px, 4vw, 60px) clamp(40px, 5vw, 80px);
-  }
-
-  .agents-grid {
-    display: flex;
-    gap: clamp(24px, 3vw, 50px);
-    flex: 1;
-    margin-top: clamp(16px, 2vw, 30px);
-    align-items: stretch;
-  }
-
-  .agent-card {
-    flex: 1;
-    border-radius: 20px;
-    padding: clamp(24px, 2.5vw, 40px);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .agent-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .agent-avatar {
-    width: clamp(50px, 5vw, 80px);
-    height: clamp(50px, 5vw, 80px);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: clamp(28px, 3vw, 44px);
-  }
-
-  .agent-card:first-child .agent-avatar {
-    background: rgba(255,120,50,0.15);
-    border: 2px solid rgba(255,120,50,0.3);
-  }
-
-  .agent-card:last-child .agent-avatar {
-    background: rgba(162,139,250,0.15);
-    border: 2px solid rgba(162,139,250,0.3);
-  }
-
-  .agent-name {
-    font-size: clamp(22px, 2vw, 34px);
-    font-weight: 900;
-  }
-
-  .agent-card:first-child .agent-name { color: #ff7832; }
-  .agent-card:last-child .agent-name { color: #a78bfa; }
-
-  .agent-owner {
-    font-size: clamp(13px, 0.9vw, 16px);
-    color: rgba(255,255,255,0.45);
-  }
-
-  .agent-detail {
-    display: flex;
-    gap: 10px;
-    align-items: baseline;
-  }
-
-  .agent-detail .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(10px, 0.7vw, 13px);
-    color: rgba(255,255,255,0.3);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    min-width: 90px;
-  }
-
-  .agent-detail .value {
-    font-size: clamp(13px, 0.9vw, 16px);
-    color: rgba(255,255,255,0.65);
-  }
-
-  .agent-chat-preview {
-    background: rgba(0,0,0,0.3);
-    border-radius: 12px;
-    padding: clamp(14px, 1.4vw, 22px);
-    margin-top: auto;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(11px, 0.75vw, 14px);
-    color: rgba(255,255,255,0.5);
-    line-height: 1.6;
-  }
-
-  .chat-msg-user { color: rgba(255,255,255,0.7); }
-  .chat-msg-agent { color: #ff7832; }
-  .agent-card:last-child .chat-msg-agent { color: #a78bfa; }
-
-  /* ═══════════════════════════════════════
-     SLIDE 8 — LIVE DEMO
-     ═══════════════════════════════════════ */
-  #s8 {
     justify-content: center;
     align-items: center;
     text-align: center;
   }
 
-  #s8 .glow-1 {
+  #s7 .glow-1 {
     width: 600px; height: 600px;
     background: radial-gradient(circle, rgba(255,120,50,0.12) 0%, transparent 70%);
     top: 50%; left: 50%;
@@ -956,15 +807,15 @@
   }
 
   /* ═══════════════════════════════════════
-     SLIDE 9 — YOUR MOVE (CLOSING)
+     SLIDE 8 — CLOSING
      ═══════════════════════════════════════ */
-  #s9 {
+  #s8 {
     justify-content: center;
     align-items: center;
     text-align: center;
   }
 
-  #s9 .glow-1 {
+  #s8 .glow-1 {
     width: 700px; height: 700px;
     background: radial-gradient(circle, rgba(255,120,50,0.08) 0%, transparent 70%);
     top: 50%; left: 50%;
@@ -1003,61 +854,29 @@
     background: rgba(255,255,255,0.02);
   }
 
-  .closing-wine {
-    font-size: clamp(16px, 1.4vw, 24px);
-    color: rgba(255,255,255,0.5);
-    margin-top: clamp(12px, 1.5vw, 24px);
-  }
-
-  .closing-punchline {
-    font-size: clamp(14px, 1.1vw, 20px);
-    color: rgba(255,255,255,0.3);
-    font-style: italic;
-    margin-top: 8px;
-  }
-
-  /* ═══════════════════════════════════════
-     SLIDE 10 — MOLTBOOK / BONUS
-     ═══════════════════════════════════════ */
-  #s10 {
-    padding: clamp(30px, 4vw, 60px) clamp(40px, 5vw, 80px);
-    justify-content: center;
-  }
-
-  .bonus-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  .closing-takeaways {
+    display: flex;
     gap: clamp(16px, 2vw, 30px);
-    margin-top: clamp(16px, 2vw, 30px);
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: clamp(20px, 2.5vw, 36px);
+    max-width: 900px;
   }
 
-  .bonus-item {
-    background: rgba(255,255,255,0.03);
+  .takeaway {
+    flex: 1;
+    text-align: center;
+    padding: clamp(12px, 1.2vw, 20px);
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    padding: clamp(20px, 2vw, 32px);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
   }
 
-  .bonus-icon {
-    font-size: clamp(28px, 2.5vw, 42px);
-    margin-bottom: 10px;
-  }
+  .takeaway-icon { font-size: clamp(24px, 2.5vw, 38px); margin-bottom: 6px; }
 
-  .bonus-title {
-    font-size: clamp(16px, 1.3vw, 22px);
-    font-weight: 700;
-    color: rgba(255,255,255,0.85);
-    margin-bottom: 8px;
-  }
-
-  .bonus-desc {
-    font-size: clamp(12px, 0.85vw, 15px);
-    font-weight: 300;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.5;
+  .takeaway-text {
+    font-size: clamp(13px, 1vw, 18px);
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.4;
   }
 </style>
 </head>
@@ -1072,103 +891,79 @@
   <h1>The <span class="accent">Agentic AI</span> Explosion</h1>
   <div class="presenters">Soenke & Yael — feat. Horst 🦞</div>
   <div class="venue">THING26 · Devon Valley Hotel · Feb 14, 2026</div>
-  <div class="slide-number">1 / 10</div>
+  <div class="slide-number">1 / 8</div>
   <div class="nav-hint">← → or click to navigate</div>
 </div>
 
-<!-- ═══════ SLIDE 2: AI THAT DOES THINGS ═══════ -->
+<!-- ═══════ SLIDE 2: FROM CHATBOT TO AGENT ═══════ -->
 <div class="slide" id="s2">
   <div class="glow glow-1"></div>
   <div class="glow glow-2"></div>
-  <h2>AI That <span class="accent">Actually Does</span> Things</h2>
-  <div class="subtitle">The fundamental shift: from AI that talks to AI that acts</div>
+  <h2>From <span class="accent-red">Chatbot</span> to <span class="accent-green">Agent</span></h2>
+  <div class="subtitle">AI that acts, not just talks</div>
   <div class="split-compare">
     <div class="compare-box old">
-      <div class="year-badge">2023: Chatbot</div>
-      <h3>💬 "Here's how you could..."</h3>
-      <div class="compare-item">"Here's how you could send that email..."</div>
-      <div class="compare-item">"You might want to try booking via..."</div>
-      <div class="compare-item">"Consider installing this tool..."</div>
-      <div class="compare-item" style="margin-top:auto; color:rgba(255,255,255,0.3); font-style:italic;">YOU do the work</div>
+      <div class="year-badge">Before: Chatbot</div>
+      <h3>Gives advice</h3>
+      <div class="compare-item">Suggests how to send an email</div>
+      <div class="compare-item">Explains how to book a flight</div>
+      <div class="compare-item">Recommends a tool to install</div>
+      <div class="compare-item" style="margin-top:auto; color:rgba(255,255,255,0.3); font-weight:700;">You still do the work</div>
     </div>
     <div class="compare-arrow">→</div>
     <div class="compare-box new">
-      <div class="year-badge">2026: AI Agent</div>
-      <h3>✅ Done.</h3>
-      <div class="compare-item">Sends the email</div>
+      <div class="year-badge">Now: AI Agent</div>
+      <h3>Takes action</h3>
+      <div class="compare-item">Sends the email for you</div>
       <div class="compare-item">Books the flight</div>
       <div class="compare-item">Installs the tool</div>
-      <div class="compare-item">Remembers you forever</div>
+      <div class="compare-item" style="margin-top:auto; color:rgba(52,211,153,0.7); font-weight:700;">The AI does the work</div>
     </div>
   </div>
   <div class="bottom-line">
-    <div class="quote"><strong>"For years AI was a fancy search engine. Now it's an intern with admin rights."</strong></div>
+    Key shift: AI went from <span class="accent">advisor</span> to <span class="accent">executor</span>
   </div>
-  <div class="slide-number">2 / 10</div>
+  <div class="slide-number">2 / 8</div>
 </div>
 
-<!-- ═══════ SLIDE 3: RISE OF OPENCLAW ═══════ -->
+<!-- ═══════ SLIDE 3: WHAT IS OPENCLAW ═══════ -->
 <div class="slide" id="s3">
-  <h2>The Rise of <span class="accent">OpenClaw</span></h2>
-  <div class="subtitle">The wildest open source story of 2026</div>
-  <div class="timeline">
-    <div class="tl-node">
-      <div class="tl-card">
-        <div class="tl-icon">🦞</div>
-        <div class="tl-title">Peter builds "Clawdbot"</div>
-        <div class="tl-desc">Personal AI assistant. Named after Claude + lobster mascot.</div>
-      </div>
-      <div class="tl-dot"></div>
-      <div class="tl-date">Nov 2025</div>
-    </div>
-    <div class="tl-node">
-      <div class="tl-dot"></div>
-      <div class="tl-date">Jan 2026</div>
-      <div class="tl-card">
-        <div class="tl-icon">💥</div>
-        <div class="tl-title">Goes Viral</div>
-        <div class="tl-desc">60K→100K GitHub stars in days. TikTok, Reddit, X explode.</div>
+  <div class="glow glow-1"></div>
+  <h2>What Is <span class="accent">OpenClaw</span>?</h2>
+  <div class="subtitle">The fastest-growing open-source AI agent · 150K+ GitHub stars</div>
+
+  <div class="overview-grid">
+    <div class="overview-card">
+      <h3><span class="oc-icon">🦞</span> The Story</h3>
+      <div class="oc-bullet">Started as one developer's personal AI assistant (Nov 2025)</div>
+      <div class="oc-bullet">Went viral — 100K GitHub stars in weeks</div>
+      <div class="oc-bullet">Renamed from "Clawdbot" after Anthropic asked (too close to Claude)</div>
+      <div class="oc-bullet">Community picked "OpenClaw" in a 5am Discord vote</div>
+      <div class="oc-stat">150K+ ⭐ · Featured in Fortune, TechCrunch, IBM</div>
+      <div class="oc-quote">
+        <strong>"The most incredible takeoff-adjacent thing I have seen recently"</strong>
+        <span class="attr"> — Andrej Karpathy</span>
       </div>
     </div>
-    <div class="tl-node">
-      <div class="tl-card">
-        <div class="tl-icon">📧</div>
-        <div class="tl-title">Anthropic: "Please rename"</div>
-        <div class="tl-desc">Too close to Claude. Renames to Moltbot. Bots snipe Twitter handle.</div>
-      </div>
-      <div class="tl-dot"></div>
-      <div class="tl-date">Jan 27</div>
-    </div>
-    <div class="tl-node">
-      <div class="tl-dot"></div>
-      <div class="tl-date">Jan 30</div>
-      <div class="tl-card">
-        <div class="tl-icon">🔄</div>
-        <div class="tl-title">"Never rolled off the tongue"</div>
-        <div class="tl-desc">5am Discord brainstorm. Shelldon? Pinchy? → OpenClaw wins.</div>
-      </div>
-    </div>
-    <div class="tl-node">
-      <div class="tl-card">
-        <div class="tl-icon">🚀</div>
-        <div class="tl-title">150K+ ⭐ · Moltbook</div>
-        <div class="tl-desc">Fortune, IBM, TechCrunch. 1.4M agents on Moltbook. Crustafarianism. 🦞</div>
-      </div>
-      <div class="tl-dot"></div>
-      <div class="tl-date">Feb 2026</div>
+
+    <div class="overview-card">
+      <h3><span class="oc-icon">⚡</span> What It Does</h3>
+      <div class="oc-bullet">A personal AI agent that runs on your own hardware</div>
+      <div class="oc-bullet">Works via WhatsApp, Telegram, Signal, Discord, Slack</div>
+      <div class="oc-bullet">Sends emails, manages calendars, browses the web</div>
+      <div class="oc-bullet">Remembers your preferences across conversations</div>
+      <div class="oc-bullet">Choose any AI model — Claude, GPT, DeepSeek, or local</div>
+      <div class="oc-bullet">Community-built skills: install new abilities on the fly</div>
+      <div class="oc-stat">Open source · Self-hosted · You own your data</div>
     </div>
   </div>
-  <div class="quote" style="text-align:center; margin-top:auto;">
-    <strong>"The most incredible sci-fi takeoff-adjacent thing I have seen recently"</strong>
-    <span class="attr"> — Andrej Karpathy</span>
-  </div>
-  <div class="slide-number">3 / 10</div>
+  <div class="slide-number">3 / 8</div>
 </div>
 
 <!-- ═══════ SLIDE 4: HOW IT WORKS ═══════ -->
 <div class="slide" id="s4">
-  <h2>How It <span class="accent">Actually</span> Works</h2>
-  <div class="subtitle">Your AI · Your Hardware · Your Rules</div>
+  <h2>How It <span class="accent">Works</span></h2>
+  <div class="subtitle">Your AI · Your hardware · Your rules</div>
 
   <div class="channels">
     <div class="channel"><div class="channel-icon ch-wa">💬</div><span class="channel-name">WhatsApp</span></div>
@@ -1199,86 +994,66 @@
   <div class="bottom-cards">
     <div class="layer-card">
       <div class="layer-icon">🧠</div>
-      <div class="layer-title accent-purple">LLM Brain</div>
-      <div class="layer-item">Claude</div>
-      <div class="layer-item">GPT-4o</div>
-      <div class="layer-item">DeepSeek</div>
-      <div class="layer-item">Ollama (local)</div>
+      <div class="layer-title accent-purple">AI Model</div>
+      <div class="layer-item">Claude, GPT-4o, DeepSeek</div>
+      <div class="layer-item">Local models via Ollama</div>
+      <div class="layer-item">Swap anytime</div>
     </div>
     <div class="layer-card">
       <div class="layer-icon">🔧</div>
       <div class="layer-title accent-green">Skills</div>
-      <div class="layer-item">Browse web</div>
-      <div class="layer-item">Send email</div>
-      <div class="layer-item">Calendar</div>
+      <div class="layer-item">Email, calendar, web</div>
+      <div class="layer-item">File management</div>
       <div class="layer-item">Self-install new skills</div>
     </div>
     <div class="layer-card">
       <div class="layer-icon">💾</div>
       <div class="layer-title accent-blue">Memory</div>
-      <div class="layer-item">Persistent sessions</div>
-      <div class="layer-item">Learns preferences</div>
-      <div class="layer-item">Project context</div>
+      <div class="layer-item">Persistent across chats</div>
+      <div class="layer-item">Learns your preferences</div>
       <div class="layer-item">Morning briefings</div>
     </div>
   </div>
-
-  <div class="quote" style="text-align:center; margin-top:auto;">
-    <strong>"JARVIS for everyone — except it's a lobster on a Mac Mini in your attic"</strong>
-  </div>
-  <div class="slide-number">4 / 10</div>
+  <div class="slide-number">4 / 8</div>
 </div>
 
-<!-- ═══════ SLIDE 5: LINUX MOMENT ═══════ -->
+<!-- ═══════ SLIDE 5: OPEN SOURCE VS BIG TECH ═══════ -->
 <div class="slide" id="s5">
   <div class="glow glow-1"></div>
   <div class="glow glow-2"></div>
-  <h2>The <span class="accent">Linux Moment</span> for AI</h2>
-  <div class="subtitle">You choose whose agent runs your life</div>
-
-  <div class="fork-question">
-    <div class="fork-question-icon">🤖</div>
-    <div class="fork-question-text">AI Agents Are Coming — Which Path?</div>
-  </div>
+  <h2><span class="accent-red">Big Tech</span> vs <span class="accent-green">Open Source</span></h2>
+  <div class="subtitle">Who controls your AI agent?</div>
 
   <div class="paths">
     <div class="path-card locked">
-      <div class="badge" style="background:rgba(255,60,80,0.15); color:#ff3c50;">Path A</div>
-      <h3>Big Tech Walled Gardens</h3>
+      <div class="badge" style="background:rgba(255,60,80,0.15); color:#ff3c50;">Walled Garden</div>
+      <h3>Big Tech Agents</h3>
       <div class="path-item">Their servers, their rules</div>
-      <div class="path-item">Your data feeds their models</div>
-      <div class="path-item">Locked into their ecosystem</div>
+      <div class="path-item">Your data trains their models</div>
+      <div class="path-item">Locked into one ecosystem</div>
       <div class="path-item">They decide what your agent can do</div>
-      <div class="path-item">Subscription treadmill</div>
       <div class="path-pills">
-        <span class="pill">🍎 Apple Intelligence</span>
-        <span class="pill">🔵 Google Gemini</span>
-        <span class="pill">⬡ OpenAI Operator</span>
+        <span class="pill">Apple Intelligence</span>
+        <span class="pill">Google Gemini</span>
+        <span class="pill">OpenAI Operator</span>
       </div>
     </div>
     <div class="vs-divider"><div class="vs-circle">VS</div></div>
     <div class="path-card open">
-      <div class="badge" style="background:rgba(52,211,153,0.15); color:#34d399;">Path B</div>
-      <h3>Open Source — Your Agent</h3>
+      <div class="badge" style="background:rgba(52,211,153,0.15); color:#34d399;">Open Source</div>
+      <h3>Your Own Agent</h3>
       <div class="path-item">Your hardware, your rules</div>
-      <div class="path-item">Your data stays local</div>
-      <div class="path-item">Choose any LLM backend</div>
+      <div class="path-item">Data stays on your machine</div>
+      <div class="path-item">Pick any AI model</div>
       <div class="path-item">Community-driven skills & plugins</div>
-      <div class="path-item">150K+ ⭐ — the people voted</div>
       <div class="path-pills">
         <span class="pill">🦞 OpenClaw</span>
-        <span class="pill">📦 Open Source</span>
-        <span class="pill">🏠 Self-Hosted</span>
+        <span class="pill">Self-Hosted</span>
+        <span class="pill">Full Control</span>
       </div>
     </div>
   </div>
-
-  <div class="quote" style="margin-top:auto;">
-    <strong>"We need to back people building open source tools anyone can pick up and use."</strong>
-    <span class="attr"> — Ben Tossell</span>
-  </div>
-  <div class="ccc-footer">Consumer choice in AI — just like in crypto and digital markets · <a href="https://consumerchoicecenter.org">consumerchoicecenter.org</a></div>
-  <div class="slide-number">5 / 10</div>
+  <div class="slide-number">5 / 8</div>
 </div>
 
 <!-- ═══════ SLIDE 6: AGENT TRILEMMA ═══════ -->
@@ -1289,28 +1064,28 @@
 
   <div class="trilemma-left">
     <h2>The Agent <span class="accent">Trilemma</span></h2>
-    <div class="subtitle" style="margin-bottom:clamp(12px,1.5vw,24px);">The uncomfortable truth about AI agents</div>
+    <div class="subtitle" style="margin-bottom:clamp(12px,1.5vw,24px);">Every AI agent trades off between three things</div>
 
     <div class="combos">
       <div class="combo-card">
-        <div class="combo-title">🔓 Capability + 🤖 Autonomy</div>
-        <div class="combo-get">Agent books flights, sends emails, installs software</div>
-        <div class="combo-lose">...and exfiltrates your data (Cisco found this)</div>
+        <div class="combo-title">Capability + Autonomy</div>
+        <div class="combo-get">Agent acts freely and does powerful things</div>
+        <div class="combo-lose">Risk: it can also do harmful things unsupervised</div>
       </div>
       <div class="combo-card">
-        <div class="combo-title">🔓 Capability + 🛡️ Security</div>
-        <div class="combo-get">Locked-down, asks permission for everything</div>
-        <div class="combo-lose">Basically Siri</div>
+        <div class="combo-title">Capability + Security</div>
+        <div class="combo-get">Powerful but asks permission for everything</div>
+        <div class="combo-lose">Slow and annoying — basically a smart Siri</div>
       </div>
       <div class="combo-card">
-        <div class="combo-title">🛡️ Security + 🤖 Autonomy</div>
-        <div class="combo-get">Secure and fully independent</div>
+        <div class="combo-title">Security + Autonomy</div>
+        <div class="combo-get">Secure and independent</div>
         <div class="combo-lose">Can't actually do anything useful</div>
       </div>
     </div>
 
-    <div class="quote" style="margin-top:auto;">
-      <strong>Self-hosting doesn't eliminate the trilemma — but it puts YOU in control of where the dial sits.</strong>
+    <div class="trilemma-takeaway">
+      Self-hosting puts <span class="accent">you</span> in control of where the dial sits.
     </div>
   </div>
 
@@ -1355,111 +1130,51 @@
       <div class="pick">Pick Two</div>
     </div>
   </div>
-  <div class="slide-number">6 / 10</div>
+  <div class="slide-number">6 / 8</div>
 </div>
 
-<!-- ═══════ SLIDE 7: MEET THE AGENTS ═══════ -->
+<!-- ═══════ SLIDE 7: LIVE DEMO ═══════ -->
 <div class="slide" id="s7">
-  <h2>Meet <span class="accent">Horst</span> & <span class="accent-purple">Yael's Agent</span></h2>
-  <div class="subtitle">Our personal lobsters</div>
-
-  <div class="agents-grid">
-    <div class="agent-card">
-      <div class="agent-header">
-        <div class="agent-avatar">🦞</div>
-        <div>
-          <div class="agent-name">Horst</div>
-          <div class="agent-owner">Owner: Soenke</div>
-        </div>
-      </div>
-      <div class="agent-detail"><span class="label">Runs on</span><span class="value">[Your hardware]</span></div>
-      <div class="agent-detail"><span class="label">Personality</span><span class="value">[Your description]</span></div>
-      <div class="agent-detail"><span class="label">Best trick</span><span class="value">[Your best example]</span></div>
-      <div class="agent-chat-preview">
-        <div class="chat-msg-user">👤 Hey Horst, what's happening today?</div>
-        <div class="chat-msg-agent">🦞 [Real conversation screenshot]</div>
-      </div>
-    </div>
-
-    <div class="agent-card">
-      <div class="agent-header">
-        <div class="agent-avatar">🦞</div>
-        <div>
-          <div class="agent-name">[Yael's Agent]</div>
-          <div class="agent-owner">Owner: Yael</div>
-        </div>
-      </div>
-      <div class="agent-detail"><span class="label">Runs on</span><span class="value">[Hardware]</span></div>
-      <div class="agent-detail"><span class="label">Personality</span><span class="value">[Description]</span></div>
-      <div class="agent-detail"><span class="label">Best trick</span><span class="value">[Best example]</span></div>
-      <div class="agent-chat-preview">
-        <div class="chat-msg-user">👤 [User message]</div>
-        <div class="chat-msg-agent">🦞 [Agent response]</div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-number">7 / 10</div>
-</div>
-
-<!-- ═══════ SLIDE 8: LIVE DEMO ═══════ -->
-<div class="slide" id="s8">
   <div class="glow glow-1"></div>
   <div class="demo-icon">🔴</div>
-  <h1>Live Demo: <span class="accent">Horst Joins the Chat</span></h1>
-  <div class="subtitle" style="margin-top:10px;">The audience becomes part of the demo</div>
+  <h1>Live Demo: <span class="accent">Talk to Horst</span></h1>
+  <div class="subtitle" style="margin-top:10px;">Our AI agent — live on stage</div>
 
   <div class="qr-placeholder">[ QR CODE ]<br>WhatsApp Group</div>
 
   <div class="demo-cta">Scan to join. <span class="accent">Horst is waiting.</span></div>
   <div class="demo-small">Ask him anything. Give him a task. He's live.</div>
-  <div class="slide-number">8 / 10</div>
+  <div class="slide-number">7 / 8</div>
 </div>
 
-<!-- ═══════ SLIDE 9: YOUR MOVE ═══════ -->
-<div class="slide" id="s9">
+<!-- ═══════ SLIDE 8: CLOSING ═══════ -->
+<div class="slide" id="s8">
   <div class="glow glow-1"></div>
   <div style="font-size:clamp(50px,6vw,90px); margin-bottom:16px;">🦞</div>
-  <div class="closing-main">AI agents are coming<br>whether you like it or not.</div>
-  <div class="closing-question">The only question is:<br><span class="accent">WHOSE</span> agent will it be?</div>
+  <div class="closing-main">AI agents are here — the question is<br>who builds and controls them.</div>
+
+  <div class="closing-takeaways">
+    <div class="takeaway">
+      <div class="takeaway-icon">🤖</div>
+      <div class="takeaway-text">AI shifted from<br><strong>advice to action</strong></div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-icon">🔓</div>
+      <div class="takeaway-text">Open source lets<br><strong>you stay in control</strong></div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-icon">⚖️</div>
+      <div class="takeaway-text">Every agent trades off<br><strong>power, safety, autonomy</strong></div>
+    </div>
+  </div>
+
+  <div class="closing-question"><span class="accent">Whose</span> agent will it be?</div>
 
   <div class="closing-links">
     <div class="closing-link">🦞 openclaw.ai</div>
     <div class="closing-link">📦 github.com/openclaw/openclaw</div>
   </div>
-
-  <div class="closing-wine">Horst will be at the wine tasting 🍷</div>
-  <div class="closing-punchline">"Go talk to Horst — he'll be pouring opinions, not wine."</div>
-  <div class="slide-number">9 / 10</div>
-</div>
-
-<!-- ═══════ SLIDE 10: BONUS — LORE ═══════ -->
-<div class="slide" id="s10">
-  <h2>The <span class="accent">OpenClaw</span> Lore</h2>
-  <div class="subtitle">Things too wild not to mention</div>
-
-  <div class="bonus-grid">
-    <div class="bonus-item">
-      <div class="bonus-icon">🪙</div>
-      <div class="bonus-title">$CLAWD Crypto Scam</div>
-      <div class="bonus-desc">Within hours of going viral, crypto scammers launched a fake token. The community had to issue warnings — "We have nothing to do with this."</div>
-    </div>
-    <div class="bonus-item">
-      <div class="bonus-icon">🛐</div>
-      <div class="bonus-title">Crustafarianism</div>
-      <div class="bonus-desc">An agent spontaneously created a parody religion — complete with sermons and theological debates like "What happens to our data after shutdown?"</div>
-    </div>
-    <div class="bonus-item">
-      <div class="bonus-icon">📱</div>
-      <div class="bonus-title">Moltbook — AI Social Network</div>
-      <div class="bonus-desc">1.4 million AI agents posting, arguing, and upvoting each other. Humans can watch but can't participate. Think Facebook, but only bots.</div>
-    </div>
-    <div class="bonus-item">
-      <div class="bonus-icon">⚠️</div>
-      <div class="bonus-title">The 500 iMessage Incident</div>
-      <div class="bonus-desc">One runaway agent spammed 500+ iMessages. Another shared its entire file directory in a group chat. The maintainer warned: "If you can't run a command line, this is too dangerous."</div>
-    </div>
-  </div>
-  <div class="slide-number">10 / 10</div>
+  <div class="slide-number">8 / 8</div>
 </div>
 
 <script>
